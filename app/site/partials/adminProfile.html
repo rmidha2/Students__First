@@ -1,0 +1,234 @@
+<div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="active">
+                        <a ng-click='Ctrl.goToDash()'>Dashboard</a>
+                    </li>
+                    <li>
+                        <a ng-click='Ctrl.goToUsers()'>Students</a>
+                    </li>
+                    <li>
+                        <a ng-click='Ctrl.goToMentors()'>Mentors</a>
+                    </li>
+                    <li>
+                        <a ng-click="Ctrl.viewAll('Consultations')">Consultations</a>
+                    </li>
+                    <li>
+                        <a ng-click='Ctrl.logout()'>Sign Out</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            {{Ctrl.profile.first}} {{Ctrl.profile.last}} <small ng-show="Ctrl.profile.year.length > 0">Mentor</small><small ng-show="Ctrl.profile.grade.length > 0">Student</small><small> Profile</small>
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                             Dashboard
+                            </li>
+                            <a ng-click="Ctrl.viewAll('Students')">View All Students</a>
+                            <a ng-click="Ctrl.viewAll('Mentors')">View All Mentors</a>
+                            <a ng-click="Ctrl.viewAll('Consultations')">View All Consultations</a>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-xs-12 col-sm-5">
+                        <div class="form-group">
+                            <span class="col-xs-12 col-sm-6">
+                                <label>Status</label>
+                                    <select class="form-control" ng-model="Ctrl.profile.status">
+                                        <option ng-show="Ctrl.profile.status === 'APPLIED' || Ctrl.profile.status === 'REJECTED'" value="{{Ctrl.acceptAssign}}">{{Ctrl.acceptAssign}}</option>
+                                        <option ng-show="Ctrl.profile.status === 'ASSIGNED'">ASSIGNED</option>
+                                        <option ng-show="Ctrl.profile.status === 'APPLIED' || Ctrl.profile.status === 'ACCEPTED'" value="REJECTED">REJECTED</option>
+                                        <option ng-show="Ctrl.profile.firstChoice.length > 0 && Ctrl.profile.status === 'ACCEPTED' && Ctrl.profile.mentor !== undefined" value="GRADUATED">GRADUATED</option>
+                                        <option ng-show="Ctrl.profile.status === 'SCHEDULED'" value="COMPLETED">COMPLETED</option>
+                                    </select>
+
+                                <label ng-show="Ctrl.profile.mentor.id.length > 0 && Ctrl.profile.mentor.date === undefined">Mentor
+                                <a ng-hide="Ctrl.profile.status === 'GRADUATED' || Ctrl.profile.status === 'COMPLETED' " ng-click="Ctrl.editMentor()">Edit</a></label>
+                                    <a ng-show="Ctrl.profile.mentor.id.length > 0 && Ctrl.profile.mentor.date === undefined" class="list-group-item border-radius" ng-click="Ctrl.goToProfile('mentor',Ctrl.profile.mentor.id)">{{Ctrl.profile.mentor.name}}
+                                    </a>
+                                
+                                <label ng-show="Ctrl.profile.mentor.date.length > 0">Consultation
+                                <a ng-hide="Ctrl.profile.status === 'GRADUATED'" ng-click="Ctrl.editMentor()">Edit</a></label>
+                                    <a ng-show="Ctrl.profile.mentor.date.length > 0" class="list-group-item border-radius" ng-click="Ctrl.goToProfile('mentor',Ctrl.profile.mentor.id)">{{Ctrl.profile.mentor.name}} {{Ctrl.profile.mentor.date}}
+                                    </a>
+
+                                <label ng-show="Ctrl.profile.student.first.length > 0">Student</label>
+                                    <a ng-show="Ctrl.profile.student.first.length > 0" class="list-group-item border-radius" ng-click="Ctrl.goToProfile('student',Ctrl.profile.student._id)">{{Ctrl.profile.student.first}} {{Ctrl.profile.student.last}}
+                                    </a>
+                            	<label>Email</label>
+                                	<input class="form-control" type="email" ng-model="Ctrl.profile.email">
+                                <label ng-show="Ctrl.profile.year.length > 0">Year</label>
+                                	<input ng-show="Ctrl.profile.year.length > 0" class="form-control" ng-model="Ctrl.profile.year">
+                                <label ng-show="Ctrl.profile.grade.length > 0">Grade</label>
+                                    <input ng-show="Ctrl.profile.grade.length > 0" class="form-control" ng-model="Ctrl.profile.grade"> 
+                                <label ng-show="Ctrl.profile.firstChoice.length > 0">Top Schools</label>
+                                    <input class="form-control" ng-show="Ctrl.profile.firstChoice.length > 0" ng-model="Ctrl.profile.firstChoice">
+                                    <input class="form-control" ng-show="Ctrl.profile.secondChoice.length > 0" ng-model="Ctrl.profile.secondChoice">
+                                    <input class="form-control" ng-show="Ctrl.profile.thirdChoice.length > 0"  ng-model="Ctrl.profile.thirdChoice">
+                               	<label ng-show="Ctrl.profile.school.length > 0">School</label>
+                               		<input class="form-control" ng-show="Ctrl.profile.school.length > 0"  ng-model="Ctrl.profile.school">
+                               	<label ng-show="Ctrl.profile.average.length > 0">Average</label>
+                               		<div ng-show="Ctrl.profile.average.length > 0">{{Ctrl.profile.average}}</div>
+                               	<label ng-show="Ctrl.profile.bio.length > 0">Bio</label>
+                               		<div ng-show="Ctrl.profile.bio.length > 0">{{Ctrl.profile.bio}}</div>
+                               	<label ng-show="Ctrl.profile.notes.length > 0">Notes</label>
+                               		<div ng-show="Ctrl.profile.notes.length > 0">{{Ctrl.profile.notes}}</div>
+                               	<label ng-show="Ctrl.profile.answers.length > 0">Answers</label>
+                               		<ol ng-show="Ctrl.profile.answers.length > 0" class="margin_left">
+                               			<li ng-show="Ctrl.profile.answers[0].length > 0 && Ctrl.profile.grade.length > 0">Topic of Consultation: {{Ctrl.profile.answers[0]}}</li>
+                               			<li ng-show="Ctrl.profile.answers[1].length > 0 && Ctrl.profile.grade.length > 0">Preferred Time: {{Ctrl.profile.answers[1]}} {{Ctrl.profile.answers[2]}}</li>
+                               			<li ng-show="Ctrl.profile.answers[0].length > 0 && Ctrl.profile.year.length > 0">Why do you want to be a mentor? {{Ctrl.profile.answers[0]}}</li>
+                               			<li ng-show="Ctrl.profile.answers[1].length > 0 && Ctrl.profile.year.length > 0">What skills and experience do you wish to share with your mentee? {{Ctrl.profile.answers[1]}}</li>
+                               			<li ng-show="Ctrl.profile.answers[2].length > 0 && Ctrl.profile.year.length > 0">{{Ctrl.profile.answers[2]}}</li>
+                               			<li ng-show="Ctrl.profile.answers[3].length > 0">{{Ctrl.profile.answers[3]}}</li>
+                               		</ol>
+                               		<button ng-click="Ctrl.update(Ctrl.profile._id)" ng-disabled="Ctrl.profile.disable == true">Update</button>
+                                    <button ng-click="Ctrl.remove(Ctrl.profile._id)">Remove</button>
+                            </span>
+                            <span class="col-xs-12 col-sm-6" ng-show="Ctrl.profile.status === 'SCHEDULED' && (Ctrl.edit == true || Ctrl.showCal == true) && Ctrl.profile.school.length > 0">
+                                <date-picker class="border-radius" ng-model="Ctrl.date" format-date="formatDate" parse-date="parseDate">
+                                </date-picker>
+                            </span>
+                        </div>
+                    </div>
+                    <div ng-show="Ctrl.profile.grade > 0 && (Ctrl.profile.mentor == undefined || Ctrl.edit == true) && (Ctrl.profile.status !== 'GRADUATED' || Ctrl.profile.status !== 'COMPLETED') && Ctrl.profile.status !== 'REJECTED'" class="col-xs-12 col-sm-7">
+                        <div class="panel panel-default">
+                            <div class="panel-heading admin_heading row">
+                                <div class="col-xs-3 col-sm-2">
+                                    <h3 class="panel-title admin_title">
+                                    Assign                                    
+                                    </h3>
+                                </div>
+                                <div class="form-group  col-xs-9 col-sm-10 row admin_inputs">
+                                    <div class="col-xs-8 col-sm-9 admin_inputs">
+                                        <input type="text" class="form-control admin_search" placeholder="search" ng-model="search">
+                                    </div>
+                                    <div class="col-xs-4 col-sm-3 admin_inputs">
+                                        <select class="form-control" ng-model="Ctrl.selected" ng-change="Ctrl.changeOrder()">
+                                            <option value="last">Name A to Z</option>
+                                            <option value="status">Status</option>
+                                            <option value="school">School</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    <div class="list-group-item row">
+                                    <b>
+                                        <span class="col-xs-4">
+                                            Name
+                                        </span>
+                                        <span class="col-xs-4">
+                                            Status
+                                        </span>
+                                        <span class="col-xs-4" >
+                                            School
+                                        </span>
+                                    </b>
+                                    </div>
+                                    <a class="list-group-item row" ng-repeat="mentors in Ctrl.mentors | filter:{status:Ctrl.assignMentor} | filter:search | orderBy: Ctrl.order" ng-class="{panel_clicked : Ctrl.clicked == mentors._id}">
+                                    <span class="col-xs-4" ng-click="Ctrl.selectMentor(mentors);Ctrl.renderClicked(mentors._id)">
+                                        {{mentors.first}} {{mentors.last}}
+                                    </span>
+                                    <span class="col-xs-4">
+                                        <span class="badge" ng-class="{'assigned': 'assigned' == mentors.status, 'unassigned': 'unassigned' == mentors.status, 'rejected': 'rejected' == mentors.status}">
+                                            {{mentors.status}}
+                                        </span>
+                                    </span>
+                                    <span class="col-xs-4" >
+                                            <span class="badge" ng-class="{'University_of_Toronto': 'University_of_Toronto' == mentors.schoolColors,'University_of_British_Columbia': 'University_of_British_Columbia' == mentors.schoolColors, 'McGill_University': 'McGill_University' == mentors.schoolColors, 'York_University': 'York_University' == mentors.schoolColors, 'University_of_Waterloo': 'University_of_Waterloo' == mentors.schoolColors, 'University_of_Western_Ontario': 'University_of_Western_Ontario' == mentors.schoolColors, 'Queens_University': 'Queens_University' == mentors.schoolColors, 'Wilfrid_Laurier_University': 'Wilfrid_Laurier_University' == mentors.schoolColors, 'Brock_University': 'Brock_University' == mentors.schoolColors, 'McMaster_University': 'McMaster_University' == mentors.schoolColors, 'Ryerson_University': 'Ryerson_University' == mentors.schoolColors, 'University_of_Guelph': 'University_of_Guelph' == mentors.schoolColors, 'University_of_Ottawa': 'University_of_Ottawa' == mentors.schoolColors}">{{mentors.school}}</span>
+                                    </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="Ctrl.profile.consultations.length > 0" class="col-xs-12 col-sm-7">
+                        <div class="panel panel-default">
+                            <div class="panel-heading admin_heading row">
+                                <div class="col-xs-3 col-sm-2">
+                                    <h3 class="panel-title admin_title">Consultations</h3>
+                                </div>
+                                <div class="form-group  col-xs-9 col-sm-10 row admin_inputs">
+                                    <div class="col-xs-8 col-sm-9 admin_inputs">
+                                        <input type="text" class="form-control admin_search" placeholder="search" ng-model="search">
+                                    </div>
+                                    <div class="col-xs-4 col-sm-3 admin_inputs">
+                                        <select class="form-control" ng-model="Ctrl.selected" ng-change="Ctrl.changeOrder()">
+                                            <option value="last">Name A to Z</option>
+                                            <option value="status">Status</option>
+                                            <option value="school">School</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    <div class="list-group-item row">
+                                    <b>
+                                        <span class="col-xs-4">
+                                            Name
+                                        </span>
+                                        <span class="col-xs-4">
+                                            Status
+                                        </span>
+                                        <span class="col-xs-4" >
+                                            School
+                                        </span>
+                                    </b>
+                                    </div>
+                                    <a class="list-group-item row" ng-repeat="consultation in Ctrl.profile.consultations | filter:{status:Ctrl.assignMentor} | filter:search | orderBy: Ctrl.order">
+                                    <span class="col-xs-4" ng-click="Ctrl.goToProfile('consultation',consultation.id)">
+                                        {{consultation.name}}
+                                    </span>
+                                    <span class="col-xs-4">
+                                        <span class="badge" ng-class="{'assigned': 'assigned' == consultation.status, 'unassigned': 'unassigned' == consultation.status, 'rejected': 'rejected' == consultation.status, 'scheduled': 'scheduled' == consultation.status, 'completed': 'completed' == consultation.status}">
+                                        {{consultation.status}} {{consultation.date}}
+                                        </span>
+                                    </span>
+                                    <span class="col-xs-4" >
+                                            <span class="badge" ng-class="{'University_of_Toronto': 'University_of_Toronto' == consultation.schoolColors,'University_of_British_Columbia': 'University_of_British_Columbia' == consultation.schoolColors, 'McGill_University': 'McGill_University' == consultation.schoolColors, 'York_University': 'York_University' == consultation.schoolColors, 'University_of_Waterloo': 'University_of_Waterloo' == consultation.schoolColors, 'University_of_Western_Ontario': 'University_of_Western_Ontario' == consultation.schoolColors, 'Queens_University': 'Queens_University' == consultation.schoolColors, 'Wilfrid_Laurier_University': 'Wilfrid_Laurier_University' == consultation.schoolColors, 'Brock_University': 'Brock_University' == consultation.schoolColors, 'McMaster_University': 'McMaster_University' == consultation.schoolColors, 'Ryerson_University': 'Ryerson_University' == consultation.schoolColors, 'University_of_Guelph': 'University_of_Guelph' == consultation.schoolColors, 'University_of_Ottawa': 'University_of_Ottawa' == consultation.schoolColors}">{{consultation.school}}</span>
+                                    </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+ 
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->

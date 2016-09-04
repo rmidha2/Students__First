@@ -1,0 +1,149 @@
+<div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="active">
+                        <a ng-click='Ctrl.goToDash()'>Dashboard</a>
+                    </li>
+                    <li>
+                        <a ng-click='Ctrl.goToUsers()'>Students</a>
+                    </li>
+                    <li>
+                        <a ng-click='Ctrl.goToMentors()'>Mentors</a>
+                    </li>
+                    <li>
+                        <a ng-click="Ctrl.viewAll('Consultations')">Consultations</a>
+                    </li>
+                    <li>
+                        <a ng-click='Ctrl.logout()'>
+                        Sign Out</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Mentors <small>Overview</small>
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                Dashboard
+                            </li>
+                            <a ng-click="Ctrl.viewAll('Students')">View All Students</a>
+                            <a ng-click="Ctrl.viewAll('Mentors')">View All Mentors</a>
+                            <a ng-click="Ctrl.viewAll('Consultations')">View All Consultations</a>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"> Student Applications 
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    <a class="list-group-item" ng-repeat="users in Ctrl.users | filter:{status:'APPLIED'}" ng-click="Ctrl.goToProfile('student',users._id)">
+                                        <span class="badge" ng-class="{'University_of_Toronto': 'University_of_Toronto' == users.schoolColors,'University_of_British_Columbia': 'University_of_British_Columbia' == users.schoolColors, 'McGill_University': 'McGill_University' == users.schoolColors, 'York_University': 'York_University' == users.schoolColors, 'University_of_Waterloo': 'University_of_Waterloo' == users.schoolColors, 'University_of_Western_Ontario': 'University_of_Western_Ontario' == users.schoolColors, 'Queens_University': 'Queens_University' == users.schoolColors, 'Wilfrid_Laurier_University': 'Wilfrid_Laurier_University' == users.schoolColors, 'Brock_University': 'Brock_University' == users.schoolColors, 'McMaster_University': 'McMaster_University' == users.schoolColors, 'Ryerson_University': 'Ryerson_University' == users.schoolColors, 'University_of_Guelph': 'University_of_Guelph' == users.schoolColors, 'University_of_Ottawa': 'University_of_Ottawa' == users.schoolColors}">{{users.firstChoice}}</span>{{users.first}} {{users.last}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"> Mentor Applications 
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    <a class="list-group-item" ng-repeat="mentors in Ctrl.mentors | filter:{status:'APPLIED'}" ng-click="Ctrl.goToProfile('mentor',mentors._id)">
+                                        <span class="badge" ng-class="{'University_of_Toronto': 'University_of_Toronto' == mentors.schoolColors,'University_of_British_Columbia': 'University_of_British_Columbia' == mentors.schoolColors, 'McGill_University': 'McGill_University' == mentors.schoolColors, 'York_University': 'York_University' == mentors.schoolColors, 'University_of_Waterloo': 'University_of_Waterloo' == mentors.schoolColors, 'University_of_Western_Ontario': 'University_of_Western_Ontario' == mentors.schoolColors, 'Queens_University': 'Queens_University' == mentors.schoolColors, 'Wilfrid_Laurier_University': 'Wilfrid_Laurier_University' == mentors.schoolColors, 'Brock_University': 'Brock_University' == mentors.schoolColors, 'McMaster_University': 'McMaster_University' == mentors.schoolColors, 'Ryerson_University': 'Ryerson_University' == mentors.schoolColors, 'University_of_Guelph': 'University_of_Guelph' == mentors.schoolColors, 'University_of_Ottawa': 'University_of_Ottawa' == mentors.schoolColors}">{{mentors.school}}</span>{{mentors.first}} {{mentors.last}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div class="panel panel-default">
+                            <div class="panel-heading admin_heading row">
+                                <div class="col-xs-3 col-sm-2">
+                                    <h3 class="panel-title admin_title">
+                                     Mentors 
+                                    </h3>
+                                </div>
+                                <div class="form-group  col-xs-9 col-sm-10 row admin_inputs">
+                                    <div class="col-xs-8 col-sm-9 admin_inputs">
+                                        <input type="text" class="form-control admin_search" placeholder="search" ng-model="search">
+                                    </div>
+                                    <div class="col-xs-4 col-sm-3 admin_inputs">
+                                        <select class="form-control" ng-model="Ctrl.selected" ng-change="Ctrl.changeOrder()">
+                                            <option value="last">Name A to Z</option>
+                                            <option value="status">Status</option>
+                                            <option value="school">School</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    <div class="list-group-item row">
+                                    <b>
+                                        <span class="col-xs-4">
+                                            Name
+                                        </span>
+                                        <span class="col-xs-4">
+                                            Status
+                                        </span>
+                                        <span class="col-xs-4" >
+                                                School
+                                        </span>
+                                    </b>
+                                    </div>
+                                    <a class="list-group-item row" ng-repeat="mentors in Ctrl.mentors | filter:{status:'!applied'} | filter:search | orderBy: Ctrl.order" ng-click="Ctrl.goToProfile('mentor',mentors._id)">
+                                    <span class="col-xs-4">
+                                        {{mentors.first}} {{mentors.last}}
+                                    </span>
+                                    <span class="col-xs-4">
+                                        <span class="badge" ng-class="{'assigned': 'assigned' == mentors.status, 'unassigned': 'unassigned' == mentors.status, 'rejected': 'rejected' == mentors.status}">
+                                            {{mentors.status}}
+                                        </span>
+                                    </span>
+                                    <span class="col-xs-4" >
+                                            <span class="badge" ng-class="{'University_of_Toronto': 'University_of_Toronto' == mentors.schoolColors,'University_of_British_Columbia': 'University_of_British_Columbia' == mentors.schoolColors, 'McGill_University': 'McGill_University' == mentors.schoolColors, 'York_University': 'York_University' == mentors.schoolColors, 'University_of_Waterloo': 'University_of_Waterloo' == mentors.schoolColors, 'University_of_Western_Ontario': 'University_of_Western_Ontario' == mentors.schoolColors, 'Queens_University': 'Queens_University' == mentors.schoolColors, 'Wilfrid_Laurier_University': 'Wilfrid_Laurier_University' == mentors.schoolColors, 'Brock_University': 'Brock_University' == mentors.schoolColors, 'McMaster_University': 'McMaster_University' == mentors.schoolColors, 'Ryerson_University': 'Ryerson_University' == mentors.schoolColors, 'University_of_Guelph': 'University_of_Guelph' == mentors.schoolColors, 'University_of_Ottawa': 'University_of_Ottawa' == mentors.schoolColors}">{{mentors.school}}</span>
+                                    </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+ 
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->

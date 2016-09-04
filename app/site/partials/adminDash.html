@@ -1,0 +1,187 @@
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="active">
+                        <a ng-click="Ctrl.goToDash()">Dashboard</a>
+                    </li>
+                    <li>
+                        <a ng-click='Ctrl.goToUsers()'>Students</a>
+                    </li>
+                    <li>
+                        <a ng-click='Ctrl.goToMentors()'>Mentors</a>
+                    </li>
+                    <li>
+                        <a ng-click="Ctrl.viewAll('Consultations')">Consultations</a>
+                    </li>
+                    <li>
+                        <a ng-click='Ctrl.logout()'>Sign Out</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Dashboard <small>Overview</small>
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                Dashboard
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="huge row">
+                                        <span class="col-xs-12 col-sm-6 live_heading">
+                                        {{Ctrl.mentors.length}}
+                                        </span>
+                                        <span class="col-xs-12 col-sm-6 live_icon">
+                                        <img src="../../admin_assets/images/mentor.png">
+                                        Mentors
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <span class="row no_margin">
+                                    <a ng-click="Ctrl.goToAdd()" class="col-xs-6">
+                                        Add Mentor
+                                    </a>
+                                    <a ng-click="Ctrl.viewAll('Mentors')" class="col-xs-6">
+                                        View All Mentors
+                                    </a>                                    
+                                </span>                                  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="huge row">
+                                        <span class="col-xs-12 col-sm-6 live_heading">
+                                            {{Ctrl.users.length}}
+                                        </span>
+                                        <span class="col-xs-12 col-sm-6 live_icon">
+                                        <img src="../../admin_assets/images/student.png">
+                                        Students 
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <a ng-click="Ctrl.viewAll('Students')">
+                                <div class="panel-footer">
+                                    View All Students
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="panel panel-yellow">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="huge row">
+                                        <span class="col-xs-12 col-sm-6 live_heading">
+                                        {{Ctrl.consultations.length}} 
+                                        </span>
+                                        <span class="col-xs-12 col-sm-6 live_icon">
+                                        <img src="../../admin_assets/images/phone.png">
+                                        <div>
+                                        Calls  
+                                        </div>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <a ng-click="Ctrl.viewAll('Consultations')">
+                                <div class="panel-footer">
+                                    View All Consultations
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"> Mentor Applications 
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    <a class="list-group-item" ng-repeat="mentors in Ctrl.mentors | filter:{status:'APPLIED'}" ng-click="Ctrl.goToProfile('mentor',mentors._id)">
+                                        <span class="badge" ng-class="{'University_of_Toronto': 'University_of_Toronto' == mentors.schoolColors,'University_of_British_Columbia': 'University_of_British_Columbia' == mentors.schoolColors, 'McGill_University': 'McGill_University' == mentors.schoolColors, 'York_University': 'York_University' == mentors.schoolColors, 'University_of_Waterloo': 'University_of_Waterloo' == mentors.schoolColors, 'University_of_Western_Ontario': 'University_of_Western_Ontario' == mentors.schoolColors, 'Queens_University': 'Queens_University' == mentors.schoolColors, 'Wilfrid_Laurier_University': 'Wilfrid_Laurier_University' == mentors.schoolColors, 'Brock_University': 'Brock_University' == mentors.schoolColors, 'McMaster_University': 'McMaster_University' == mentors.schoolColors, 'Ryerson_University': 'Ryerson_University' == mentors.schoolColors, 'University_of_Guelph': 'University_of_Guelph' == mentors.schoolColors, 'University_of_Ottawa': 'University_of_Ottawa' == mentors.schoolColors}"">{{mentors.school}}</span>{{mentors.first}} {{mentors.last}}                                       
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"> Student Applications 
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    <a class="list-group-item" ng-repeat="users in Ctrl.users | filter:{status:'APPLIED'}" ng-click="Ctrl.goToProfile('student',users._id)">
+                                        <span class="badge" ng-class="{'University_of_Toronto': 'University_of_Toronto' == users.schoolColors,'University_of_British_Columbia': 'University_of_British_Columbia' == users.schoolColors, 'McGill_University': 'McGill_University' == users.schoolColors, 'York_University': 'York_University' == users.schoolColors, 'University_of_Waterloo': 'University_of_Waterloo' == users.schoolColors, 'University_of_Western_Ontario': 'University_of_Western_Ontario' == users.schoolColors, 'Queens_University': 'Queens_University' == users.schoolColors, 'Wilfrid_Laurier_University': 'Wilfrid_Laurier_University' == users.schoolColors, 'Brock_University': 'Brock_University' == users.schoolColors, 'McMaster_University': 'McMaster_University' == users.schoolColors, 'Ryerson_University': 'Ryerson_University' == users.schoolColors, 'University_of_Guelph': 'University_of_Guelph' == users.schoolColors, 'University_of_Ottawa': 'University_of_Ottawa' == users.schoolColors}">{{users.firstChoice}}</span>                                      
+                                        {{users.first}} {{users.last}}
+                                 </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"> Consultation Applications 
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    <a class="list-group-item" ng-repeat="consultations in Ctrl.consultations | filter:{status:'APPLIED'}" ng-click="Ctrl.goToProfile('consultation', consultations._id)">
+                                        <span class="badge" ng-class="{'University_of_Toronto': 'University_of_Toronto' == consultations.schoolColors,'University_of_British_Columbia': 'University_of_British_Columbia' == consultations.schoolColors, 'McGill_University': 'McGill_University' == consultations.schoolColors, 'York_University': 'York_University' == consultations.schoolColors, 'University_of_Waterloo': 'University_of_Waterloo' == consultations.schoolColors, 'University_of_Western_Ontario': 'University_of_Western_Ontario' == consultations.schoolColors, 'Queens_University': 'Queens_University' == consultations.schoolColors, 'Wilfrid_Laurier_University': 'Wilfrid_Laurier_University' == consultations.schoolColors, 'Brock_University': 'Brock_University' == consultations.schoolColors, 'McMaster_University': 'McMaster_University' == consultations.schoolColors, 'Ryerson_University': 'Ryerson_University' == consultations.schoolColors, 'University_of_Guelph': 'University_of_Guelph' == consultations.schoolColors, 'University_of_Ottawa': 'University_of_Ottawa' == consultations.schoolColors}">{{consultations.school}}</span>
+                                        {{consultations.first}} {{consultations.last}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->

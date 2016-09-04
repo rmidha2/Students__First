@@ -1,0 +1,111 @@
+<div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="active">
+                        <a ng-click='Ctrl.goToDash()'>Dashboard</a>
+                    </li>
+                    <li>
+                        <a ng-click='Ctrl.goToUsers()'>Students</a>
+                    </li>
+                    <li>
+                        <a ng-click='Ctrl.goToMentors()'>Mentors</a>
+                    </li>
+                    <li>
+                        <a ng-click="Ctrl.viewAll('Consultations')">Consultations</a>
+                    </li>
+                    <li>
+                        <a ng-click='Ctrl.logout()'>Sign Out</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            New Mentor
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                Dashboard
+                            </li>
+                            <a ng-click="Ctrl.viewAll('Students')">View All Students</a>
+                            <a ng-click="Ctrl.viewAll('Mentors')">View All Mentors</a>
+                            <a ng-click="Ctrl.viewAll('Consultations')">View All Consultations</a>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-5">
+                        <div class="form-group">
+	                        <form>
+	                        	<label>First Name</label>
+	                        		<input class="form-control" ng-model="Ctrl.first" required="required" placeholder="First Name">
+	                        	<label>Last Name</label>
+	                        		<input class="form-control" ng-model="Ctrl.last" required="required" placeholder="Last Name">
+	                            <label>Email</label>
+	                            	<input class="form-control" type="email" ng-model="Ctrl.email" required="required" placeholder="Email">
+	                            <label>School</label>
+	                            	<select class="form-control" ng-model="Ctrl.school" required="required">
+	                            		<option value="Brock University">Brock University</option>
+	                            		<option value="McGill University">McGill University</option>
+	                            		<option value="McMaster University">McMaster University</option>
+	                            		<option value="Queens University">Queens University</option>
+	                            		<option value="Ryerson University">Ryerson University</option>
+	                            		<option value="University of British Columbia">University of British Columbia</option>
+	                            		<option value="University of Western Ontario">University of Western Ontario</option>
+	                            		<option value="University of Guelph">University of Guelph</option>
+	                            		<option value="University of Ottawa">University of Ottawa</option>
+	                            		<option value="University of Toronto">University of Toronto</option>
+	                            		<option value="University of Waterloo">University of Waterloo</option>
+	                            		<option value="Wilfrid Laurier University">Wilfrid Laurier University</option>
+	                            		<option value="York University">York University</option>
+	                            	</select>
+	                            <label>Year</label>
+	                            	<select class="form-control" ng-model="Ctrl.year" required="required">
+	                            		<option value="first">First</option>
+	                            		<option value="second">Second</option>
+	                            		<option value="third">Third</option>
+	                            		<option value="fourth">Fourth</option>
+	                            		<option value="fifth">Fifth</option>
+	                            		<option value="other">Other</option>
+	                            	</select>
+	                            <button ng-click="Ctrl.addMentor()">Submit</button>
+	                        </form>
+                        </div>
+                    </div>                                     
+                </div>
+ 
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+
+
+
+
+
+

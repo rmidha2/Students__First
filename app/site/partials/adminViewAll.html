@@ -1,0 +1,117 @@
+<div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="active">
+                        <a ng-click='Ctrl.goToDash()'>Dashboard</a>
+                    </li>
+                    <li>
+                        <a ng-click='Ctrl.goToUsers()'>Students</a>
+                    </li>
+                    <li>
+                        <a ng-click='Ctrl.goToMentors()'>Mentors</a>
+                    </li>
+                    <li>
+                        <a ng-click="Ctrl.viewAll('Consultations')">Consultations</a>
+                    </li>
+                    <li>
+                        <a ng-click='Ctrl.logout()'>Sign Out</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 margin-top">
+                        <div class="panel panel-default">
+                            <div class="panel-heading admin_heading row">
+                                <div class="col-xs-2">
+                                    <h3 class="panel-title admin_title">{{Ctrl.title}} 
+                                    </h3>
+                                </div>
+                                <div class="col-xs-5 padding_six">
+                                    <a ng-click="Ctrl.viewAll('Students')">View All Students</a>
+                                    <a ng-click="Ctrl.viewAll('Mentors')">View All Mentors</a>
+                                    <a ng-click="Ctrl.viewAll('Consultations')">View All Consultations</a>
+                                </div>
+                                <div class="form-group  col-xs-5 row admin_inputs">
+                                    <div class="col-xs-8 col-sm-9 admin_inputs">
+                                        <input type="text" class="form-control admin_search" placeholder="search" ng-model="search">
+                                    </div>
+                                    <div class="col-xs-4 col-sm-3 admin_inputs">
+                                        <select class="form-control" ng-model="Ctrl.selected" ng-change="Ctrl.changeOrder()">
+                                            <option value="last">Name A to Z</option>
+                                            <option value="status">Status</option>
+                                            <option value="{{Ctrl.schoolChoice}}">School</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                	<div class="list-group-item row">
+                                	<b>
+	                                    <span class="col-xs-3">
+	                                        Name
+	                                    </span>
+	                                    <span class="col-xs-2">
+	                                    	Email
+	                                    </span>
+	                                    <span class="col-xs-2">
+	                                    	Year
+	                                    </span>
+	                                    <span class="col-xs-2">
+	                                        Status
+	                                    </span>
+	                                    <span class="col-xs-3" >
+	                                        School
+	                                    </span>
+	                                </b>
+                                    </div>
+                                    <a class="list-group-item row" ng-repeat="inputs in Ctrl.input | filter:search | orderBy: Ctrl.order" ng-click="Ctrl.goToProfile(Ctrl.inputType,inputs._id)">
+                                    <span class="col-xs-3">
+                                        {{inputs.first}} {{inputs.last}}
+                                    </span>
+                                    <span class="col-xs-2">
+                                    	{{inputs.email}}
+                                    </span>
+                                    <span class="col-xs-2">
+                                    	{{inputs.year}}{{inputs.grade}}
+                                    </span>
+                                    <span class="col-xs-2">
+                                        <span class="badge" ng-class="{'assigned': 'assigned' == inputs.status, 'unassigned': 'unassigned' == inputs.status, 'accepted': 'accepted' == inputs.status, 'graduated': 'graduated' == inputs.status, 'applied': 'applied' == inputs.status, 'rejected': 'rejected' == inputs.status, 'completed': 'completed' == inputs.status,'scheduled': 'scheduled' == inputs.status}">
+                                        {{inputs.status}} {{inputs.mentor.date}}
+                                        </span>
+                                    </span>
+                                    <span class="col-xs-3" >
+                                            <span class="badge" ng-class="{'University_of_Toronto': 'University_of_Toronto' == inputs.schoolColors,'University_of_British_Columbia': 'University_of_British_Columbia' == inputs.schoolColors, 'McGill_University': 'McGill_University' == inputs.schoolColors, 'York_University': 'York_University' == inputs.schoolColors, 'University_of_Waterloo': 'University_of_Waterloo' == inputs.schoolColors, 'University_of_Western_Ontario': 'University_of_Western_Ontario' == inputs.schoolColors, 'Queens_University': 'Queens_University' == inputs.schoolColors, 'Wilfrid_Laurier_University': 'Wilfrid_Laurier_University' == inputs.schoolColors, 'Brock_University': 'Brock_University' == inputs.schoolColors, 'McMaster_University': 'McMaster_University' == inputs.schoolColors, 'Ryerson_University': 'Ryerson_University' == inputs.schoolColors, 'University_of_Guelph': 'University_of_Guelph' == inputs.schoolColors, 'University_of_Ottawa': 'University_of_Ottawa' == inputs.schoolColors}">{{inputs.school}}{{inputs.firstChoice}}</span>
+                                    </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+ 
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
