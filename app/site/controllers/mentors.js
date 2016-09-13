@@ -1,7 +1,7 @@
 (function(){
 	angular
 		.module('myApp')
-		.controller('HomeCtrl', HomeCtrl);
+		.controller('MentorCtrl', MentorCtrl);
 
 	function HomeCtrl ($scope, $location, auth) {
 		var homeVm = this;
@@ -9,11 +9,6 @@
 		var shown = [false,false,false,false,false,false,false,false]
 
 		homeVm.showAnswer = showAnswer;
-		homeVm.goToMentors = goToMentors;
-
-		function goToMentors(){
-			$location.path('/mentors')
-		}
 
 		function showAnswer(id,icon){
 			if (shown[id-1] === false) {

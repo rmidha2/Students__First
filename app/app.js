@@ -11,6 +11,11 @@
 	      templateUrl: 'site/partials/home.html',
 	      pageTitle: 'Home'
 	    })
+	    .when('/mentors', {
+	      controller: 'MentorCtrl as Ctrl',
+	      templateUrl: 'site/partials/mentors.html',
+	      pageTitle: 'Mentors'
+	    })
 	    .when('/login', {
 	    	controller: 'LoginCtrl as Ctrl',
 	    	templateUrl: 'site/partials/login.html',

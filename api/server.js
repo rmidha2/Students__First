@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(__dirname + './../app/'));
 // server
-app.listen(80, function() {
+app.listen(8080, function() {
 	console.log('Server Started  on http://localhost:8080');
 	console.log('Press CTRL + C to stop server');
 });
