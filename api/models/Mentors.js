@@ -6,7 +6,7 @@ var MentorSchema = new Schema({
 		first: String,
 		last: String,
 		email: 	{type: String,  
-				unique: true},
+			unique: true},
 		school: String,
 		year: String,
 		answers: Array,
