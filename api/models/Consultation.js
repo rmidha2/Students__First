@@ -6,7 +6,7 @@ var ConsultationSchema = new Schema({
 		first: String,
 		last: String,
 		email: 	{type: String,  
-				unique: true},
+			unique: true},
 		grade: String,
 		school: String,
 		answers: Array,
